@@ -62,3 +62,4 @@ And run the pre publish script
 ```js
 npm run prepare
 ```
+[![HitCount](http://hits.dwyl.com/{username}/che-wf/react-number-easing.svg)](http://hits.dwyl.com/{username}/che-wf/react-number-easing)

@@ -1,4 +1,5 @@
 # [React Number Easing](http://javierbyte.github.io/react-number-easing/)
+[![Rate on Openbase](https://badges.openbase.com/js/rating/che-react-number-easing.svg)](https://openbase.com/js/che-react-number-easing?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 React component for fancy number transitions.
 

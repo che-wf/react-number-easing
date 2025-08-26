@@ -12,6 +12,17 @@ React component for fancy number transitions.
 npm i -S che-react-number-easing
 ```
 
+
+## Accessibility
+
+`NumberEasing` uses the semantic `<output aria-live="polite">` element to display animated numbers. This ensures that screen readers announce changes to the value automatically.
+
+You can pass custom ARIA attributes (e.g., `aria-label`) to further improve accessibility for your use case:
+
+```jsx
+<NumberEasing value={1234} aria-label="Total sales" />
+```
+
 ## Usage
 
 ```jsx

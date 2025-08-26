@@ -80,13 +80,17 @@ function NumberEasing({
 
   // eslint-disable-next-line react/jsx-props-no-spreading
   return (
-    <span {...other} className={classes}>
+    <output
+      {...other}
+      className={classes}
+      aria-live="polite"
+    >
       {useLocaleString
         ? parseFloat(displayValue).toLocaleString(locale, opts)
         : trail
           ? Number(displayValue).toFixed(precision > -1 ? precision : 0)
           : Number(displayValue).toString()}
-    </span>
+    </output>
   );
 }
 

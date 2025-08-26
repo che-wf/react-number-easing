@@ -1,7 +1,8 @@
 {
   "name": "che-react-number-easing",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "che.wf",
+  "description": "React component for fancy transition for numbers.",
   "repository": {
     "type": "git",
     "url": "https://github.com/che-wf/react-number-easing"
@@ -9,15 +10,20 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "description": "React component for fancy transition for numbers.",
   "main": "dist/index.js",
   "scripts": {
-    "pages": "git subtree push --prefix gh-pages origin gh-pages",
-    "prepublishOnly": "babel src/index.jsx -u -o dist/index.js --stage 1",
-    "prepare": "babel src/index.jsx -u -o dist/index.js --stage 1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist --extensions .js,.jsx",
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
+    "test": "jest",
+    "lint": "eslint 'src/**/*.{js,jsx}'",
+    "format": "prettier --write ."
   },
-  "browserslist": "last 2 versions, ie 11",
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not < 0.5%"
+  ],
   "keywords": [
     "react",
     "react-component",
@@ -28,31 +34,32 @@
   "license": "ISC",
   "dependencies": {
     "eases": "^1.0.8",
-    "prop-types": "^15.7.2",
-    "react": "^16.14.0"
+    "prop-types": "^15.8.1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "eslint": "^7.27.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-import": "^2.23.3",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.2",
-    "html-webpack-plugin": "^4.5.2",
-    "path": "^0.12.7",
-    "react-dom": "^16.14.0",
-    "webpack": "^4.46.0",
-    "webpack-dev-server": "^3.11.2"
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.28.0",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "babel-loader": "^9.1.3",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "html-webpack-plugin": "^5.5.3",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "prettier": "^3.6.2",
+    "webpack": "^5.88.2",
+    "webpack-dev-server": "^5.2.2"
   }
 }

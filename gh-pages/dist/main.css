@@ -1,72 +1,176 @@
-.border-radius {
-  border-radius: 2px;
+.demo-card {
+  max-width: 400px;
+  margin: 3em auto 2em auto;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  padding: 2.5em 2em 2em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.clicky:active {
-  top: 2px;
+.number-display {
+  font-size: 3.5em;
+  font-weight: 700;
+  color: #8cc34a;
+  margin-bottom: 1.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
-* {
-  margin: 0;
-  padding: 0;
-  position: relative;
+.number-icon {
+  font-size: 1.2em;
+  vertical-align: middle;
 }
-html {
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-h1 {
-  font-size: 4em;
-}
-body {
-  color: #333;
-  background: #f0f1f3;
-  text-align: center;
-}
-body,
-input,
-textarea,
-button {
-  font-family: 'Proxima Nova', 'Lato', sans-serif;
-  font-size: 17px;
-}
-#demo {
-  text-align: center;
-  padding: 3em 1.5em 1.5em;
+.controls {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
 }
-input,
-button {
-  margin: 0.4em;
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  justify-content: center;
 }
-input {
-  border-radius: 2px;
-  line-height: 1;
-  padding: 0.4em;
-  border: 1px solid #ccc;
+label {
+  font-size: 1em;
+  color: #666;
+  margin-right: 0.2em;
 }
-input.big {
-  font-size: 25.5px;
+.big {
+  font-size: 1.2em;
+  padding: 0.5em 0.8em;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafbfc;
+  width: 7em;
 }
-input:focus {
-  outline: none;
-}
-button {
-  border-radius: 2px;
-  display: inline-block;
-  background: #8bc34a;
-  border: none;
-  padding: 0.4em 0.8em;
+.primary-btn {
+  background: #8cc34a;
   color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(140, 195, 74, 0.08);
+  transition: background 0.2s;
 }
-button:active {
-  top: 2px;
+.primary-btn:hover {
+  background: #72a436;
 }
-button:hover {
-  background: #71a436;
+.secondary-btn {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-button:focus {
-  outline: none;
+.secondary-btn:hover {
+  background: #d0d0d0;
+}
+@media (max-width: 600px) {
+  .demo-card {
+    max-width: 98vw;
+    padding: 1.2em 0.5em;
+  }
+  .number-display {
+    font-size: 2.2em;
+  }
+  .big {
+    width: 100%;
+  }
+}
+.demo-card {
+  max-width: 400px;
+  margin: 3em auto 2em auto;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  padding: 2.5em 2em 2em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.number-display {
+  font-size: 3.5em;
+  font-weight: 700;
+  color: #8cc34a;
+  margin-bottom: 1.5em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.number-icon {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+.controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  justify-content: center;
+}
+label {
+  font-size: 1em;
+  color: #666;
+  margin-right: 0.2em;
+}
+.big {
+  font-size: 1.2em;
+  padding: 0.5em 0.8em;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafbfc;
+  width: 7em;
+}
+.primary-btn {
+  background: #8cc34a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(140, 195, 74, 0.08);
+  transition: background 0.2s;
+}
+.primary-btn:hover {
+  background: #72a436;
+}
+.secondary-btn {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.secondary-btn:hover {
+  background: #d0d0d0;
+}
+@media (max-width: 600px) {
+  .demo-card {
+    max-width: 98vw;
+    padding: 1.2em 0.5em;
+  }
+  .number-display {
+    font-size: 2.2em;
+  }
+  .big {
+    width: 100%;
+  }
 }

@@ -1,77 +1,125 @@
-const gulp = require('gulp');
 
-const assign = require('lodash.assign');
-const babelify = require('babelify');
-const browserify = require('browserify');
-const gutil = require('gulp-util');
-const less = require('gulp-less');
-const livereload = require('gulp-livereload');
-const source = require('vinyl-source-stream');
-const watchify = require('watchify');
+// =========================
+// Requires and Config
+// =========================
+const gulp = require("gulp");
+const assign = require("lodash.assign");
+const babelify = require("babelify");
+const browserify = require("browserify");
+const gutil = require("gulp-util");
+const less = require("gulp-less");
+const livereload = require("gulp-livereload");
+const source = require("vinyl-source-stream");
+const watchify = require("watchify");
 
-// add custom browserify options here
 const customOpts = {
-  entries: ['./src/js/app.jsx'],
+  entries: ["./src/js/app.jsx"],
   debug: true,
 };
 const opts = assign({}, watchify.args, customOpts);
-const b = watchify(browserify(opts).transform(babelify));
 
-gulp.task('js', bundle); // so you can run `gulp js` to build the file
+// =========================
+// Build (one-off, non-watch)
+// =========================
+const browserifyBuild = browserify(customOpts).transform(babelify);
 
-gulp.task('less', () =>
-  gulp
-    .src('./src/styles/main.less')
-    .pipe(less())
-    .on('error', function (err) {
-      console.log('LESS ERROR', err);
-      this.emit('end');
-    })
-    .pipe(gulp.dest('./dist'))
-    .pipe(livereload())
-);
+function buildJs() {
+  return browserifyBuild
+    .bundle()
+    .on("error", logBrowserifyError)
+    .pipe(source("app.js"))
+    .pipe(gulp.dest("./dist"));
+}
 
-gulp.task('lessWatch', () => {
-  livereload.listen();
-  gulp.watch('src/styles/**/*.less', ['less']);
-});
+gulp.task("build-js", buildJs);
 
-gulp.task('default', ['js', 'lessWatch']);
-
-b.on('update', bundle); // on any dep update, runs the bundler
-b.on('log', gutil.log); // output build logs to terminal
+// =========================
+// Watch (dev mode)
+// =========================
+const browserifyInstance = browserify(opts).transform(babelify);
+const b = watchify(browserifyInstance);
 
 function bundle() {
   return (
     b
       .bundle()
-      // log errors if they happen
-      .on('error', function (err) {
-        console.log('\n');
-        gutil.log(gutil.colors.yellow('BROWSERIFY ERROR'));
-
-        if (err.filename) {
-          const path = err.filename.split('\\');
-          let errLoc = '';
-          if ('loc' in err) {
-            errLoc = ` (${err.loc.line}:${err.loc.column})`;
-          }
-
-          path.splice(0, 3);
-
-          gutil.log(gutil.colors.yellow('File:', path.join('/') + errLoc));
-          if ('codeFrame' in err) {
-            gutil.log(gutil.colors.yellow('Error:\n', err.codeFrame));
-          }
-          this.emit('end');
-        } else {
-          gutil.log(err);
-        }
-      })
-
-      .pipe(source('app.js'))
-
-      .pipe(gulp.dest('./dist'))
+      .on("error", logBrowserifyError)
+      .pipe(source("app.js"))
+      .pipe(gulp.dest("./dist"))
       .pipe(livereload())
   );
 }
+
+b.on("update", bundle);
+b.on("log", console.log);
+
+gulp.task("js", bundle);
+
+// =========================
+// LESS tasks
+// =========================
+gulp.task("less", () =>
+  gulp
+    .src("./src/styles/main.less")
+    .pipe(less())
+    .on("error", function (err) {
+      console.log("LESS ERROR", err);
+      this.emit("end");
+    })
+    .pipe(gulp.dest("./dist"))
+    .pipe(livereload())
+);
+
+gulp.task("lessWatch", function () {
+  livereload.listen();
+  gulp.watch("src/styles/**/*.less", gulp.series("less"));
+});
+
+// =========================
+// Error Handling
+// =========================
+function logBrowserifyError(err) {
+  console.log("\n");
+  console.log(gutil.colors.yellow("BROWSERIFY ERROR"));
+  if (err.filename) {
+    const path = err.filename.split("\\");
+    let errLoc = "";
+    if ("loc" in err) {
+      errLoc = ` (${err.loc.line}:${err.loc.column})`;
+    }
+    path.splice(0, 3);
+    console.log(gutil.colors.yellow("File:", path.join("/") + errLoc));
+    if ("codeFrame" in err) {
+      console.log(gutil.colors.yellow("Error:\n", err.codeFrame));
+    }
+    this.emit("end");
+  } else {
+    console.log(err);
+  }
+}
+
+// =========================
+// Default Task
+// =========================
+gulp.task("default", gulp.parallel("js", "lessWatch"));
+
+// Gulp tasks
+gulp.task("js", bundle);
+gulp.task("less", () =>
+  gulp
+    .src("./src/styles/main.less")
+    .pipe(less())
+    .on("error", function (err) {
+      console.log("LESS ERROR", err);
+      this.emit("end");
+    })
+    .pipe(gulp.dest("./dist"))
+    .pipe(livereload())
+);
+
+gulp.task("lessWatch", function () {
+  livereload.listen();
+  gulp.watch("src/styles/**/*.less", gulp.series("less"));
+});
+
+gulp.task("default", gulp.parallel("js", "lessWatch"));
